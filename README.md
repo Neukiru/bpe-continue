@@ -91,7 +91,7 @@ Add `--sample held-out.txt` to report how much shorter that file's tokenization 
 | Parameter | Description |
 | --- | --- |
 | `base` | Tokenizer to extend: a `Tokenizer`, a path to a `tokenizer.json`, or its contents. |
-| `vocab_size` | Size of the **final** vocabulary. Nothing is discarded, so this must exceed the base's size; the difference is how many tokens are learned. |
+| `vocab_size` | Upper bound on the size of the **final** vocabulary. Nothing is discarded, so it must exceed the base's size; the difference is at most how many tokens are learned. |
 | `files` / `texts` | The training corpus. Exactly one of the two. |
 | `min_frequency` | Minimum occurrences before a pair may be merged. Default `0`. |
 | `special_tokens` | Special tokens to add. Ones the base already has stay where they are; new ones are appended after everything else. |
@@ -126,6 +126,9 @@ split differently. That is where the guarantees above come from.
 
 - `vocab_size` counts the whole final vocabulary, including any added tokens folded in at
   step 3. A tokenizer with 50,000 model tokens and 256 added tokens starts from 50,256.
+- `vocab_size` is a ceiling rather than a quota. Training also stops when no pair of tokens
+  repeats often enough to be worth merging, so a small or homogeneous corpus can produce fewer
+  new tokens than you asked for. This is the same behaviour as ordinary BPE training.
 - Continued training can only make the tokenization of a given text shorter or leave it
   unchanged. It cannot repair a base tokenizer whose *pre-tokenizer* splits your text badly,
   since word boundaries are fixed before BPE runs.

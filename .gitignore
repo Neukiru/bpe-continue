@@ -1,3 +1,6 @@
+# Local scratch area for testing a published release.
+/testinstall/
+
 # Build output and caches.
 /dist/
 /target/
