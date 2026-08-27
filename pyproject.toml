@@ -1,0 +1,52 @@
+[project]
+name = "bpe-continue"
+version = "0.1.0"
+authors = [{ name = "Malkhaz Suladze" }]
+description = "Continue the training of an existing BPE tokenizer on a new corpus, keeping every token id and merge"
+readme = "README.md"
+license = { file = "LICENSE" }
+# Matches the floor of `tokenizers`, which publishes cp39-abi3 wheels; on 3.8 it would have
+# to be built from source.
+requires-python = ">=3.9"
+keywords = ["NLP", "tokenizer", "BPE", "vocabulary", "continued training", "transfer learning"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Rust",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Text Processing :: Linguistic",
+]
+dependencies = ["tokenizers>=0.15"]
+
+[project.optional-dependencies]
+testing = ["pytest"]
+
+[project.scripts]
+bpe-continue = "bpe_continue._cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Neukiru/bpe-continue"
+Source = "https://github.com/Neukiru/bpe-continue"
+Issues = "https://github.com/Neukiru/bpe-continue/issues"
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+python-source = "python"
+module-name = "bpe_continue._native"
+bindings = "pyo3"
+features = ["pyo3/extension-module"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

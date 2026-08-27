@@ -1,0 +1,4 @@
+# Normalize line endings so the repository is identical on every platform, and CI's shell
+# steps are not handed CRLF.
+* text=auto eol=lf
+*.png binary

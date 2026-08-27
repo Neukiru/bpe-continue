@@ -1,0 +1,24 @@
+[package]
+name = "bpe-continue"
+version = "0.1.0"
+edition = "2021"
+authors = ["Malkhaz Suladze"]
+description = "Continue the training of an existing BPE tokenizer on a new corpus"
+license = "Apache-2.0"
+repository = "https://github.com/Neukiru/bpe-continue"
+publish = false
+
+[lib]
+name = "_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+# `abi3-py39` builds against Python's stable ABI, so one wheel per platform works on
+# CPython 3.9 and every later version, including ones released after this package.
+pyo3 = { version = "0.21", features = ["abi3-py39"] }
+
+[dependencies.tokenizers]
+path = "vendor/tokenizers"
+
+[features]
+default = ["pyo3/extension-module"]

@@ -1,0 +1,19 @@
+# Build output and caches.
+/dist/
+/target/
+__pycache__/
+.pytest_cache/
+
+# `maturin develop` writes the compiled extension into the source tree. It must never be
+# committed, and must be removed before `maturin build`, which would otherwise package both
+# it and the freshly built one.
+python/bpe_continue/*.pyd
+python/bpe_continue/*.so
+python/bpe_continue/*.dylib
+
+# The lockfile is tracked for this package: it pins the dependency versions the published
+# wheels are built from, which the repository-wide `**/Cargo.lock` rule would otherwise hide.
+!Cargo.lock
+
+# Per-platform cargo target dirs used by scripts/build-wheels.sh.
+/target-linux-*/
