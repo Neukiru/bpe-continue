@@ -46,7 +46,9 @@ jobs:
         run: |
           pip install maturin pytest
           maturin build --release --out dist
-          pip install --find-links dist --no-index bpe-continue
+          # Install the wheel just built, by path. `--no-index` would pin us to it but would
+          # also cut pip off from PyPI, leaving the `tokenizers` dependency unresolvable.
+          pip install dist/*.whl
       - name: Test
         run: pytest -q
 
